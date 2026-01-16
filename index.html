@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Brawl Store</title>
+  <meta charset="UTF-8" />
+  <title>Магазин Brawl</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -10,17 +10,103 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
 </head>
-<body>
+
+<body class="dark-theme">
 
 <div id="space-bg"></div>
 
 <div id="app">
+
   <header class="app-header">
-    <h1 class="logo">🌌 Brawl Store</h1>
+    <h1 class="logo">🌌 Магазин Brawl</h1>
   </header>
 
   <main id="view-container">
-    <!-- views остаются без изменений -->
+
+    <!-- HOME -->
+    <section class="view active" id="view-home">
+      <h2>Каталог</h2>
+      <div id="productGrid" class="product-grid"></div>
+
+      <div class="home-actions">
+        <button class="neon-btn" onclick="openReviews()">⭐ Смотреть отзывы</button>
+        <button class="neon-btn secondary" onclick="openSupport()">💬 Поддержка</button>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="view" id="view-reviews">
+      <h2>Отзывы</h2>
+      <div id="reviewsList"></div>
+      <button class="neon-btn back" onclick="goHome()">← Назад</button>
+    </section>
+
+    <!-- ORDER -->
+    <section class="view" id="view-order">
+      <h2>Оформление заказа</h2>
+      <p id="orderProduct"></p>
+      <p id="orderPrice"></p>
+      <button class="neon-btn" onclick="goToPayment()">Купить</button>
+      <button class="neon-btn back" onclick="goHome()">← Назад</button>
+    </section>
+
+    <!-- PAYMENT -->
+    <section class="view" id="view-payment">
+      <h2>Оплата</h2>
+      <p>Номер: <span id="paymentPhone"></span></p>
+      <p>Сумма: <span id="paymentAmount"></span></p>
+      <p id="paymentInstruction"></p>
+
+      <input type="email" id="supercellEmail" placeholder="Почта Supercell ID">
+      <input type="file" id="receiptUpload">
+
+      <button class="neon-btn" onclick="confirmPayment()">Я оплатил</button>
+    </section>
+
+    <!-- ORDERS -->
+    <section class="view" id="view-orders">
+      <h2>Мои заказы</h2>
+      <div id="ordersList"></div>
+      <button class="neon-btn back" onclick="goHome()">← Назад</button>
+    </section>
+
+    <!-- CODE -->
+    <section class="view" id="view-code">
+      <h2>Введите код</h2>
+      <input type="text" id="supercellCode" placeholder="Код из письма">
+      <button class="neon-btn" onclick="submitCode()">Отправить</button>
+    </section>
+
+    <!-- RESULT -->
+    <section class="view" id="view-result">
+      <h2>Заказ выполнен</h2>
+      <video id="resultVideo" controls></video>
+      <button class="neon-btn" onclick="openReviewForm()">Оставить отзыв</button>
+    </section>
+
+    <!-- REVIEW -->
+    <section class="view" id="view-review">
+      <h2>Оставить отзыв</h2>
+      <div class="rating">
+        <span onclick="setRating(1)">★</span>
+        <span onclick="setRating(2)">★</span>
+        <span onclick="setRating(3)">★</span>
+        <span onclick="setRating(4)">★</span>
+        <span onclick="setRating(5)">★</span>
+      </div>
+      <textarea id="reviewText" placeholder="Ваш отзыв"></textarea>
+      <button class="neon-btn" onclick="submitReview()">Отправить</button>
+    </section>
+
+    <!-- SUPPORT -->
+    <section class="view" id="view-support">
+      <h2>Поддержка</h2>
+      <div id="chatMessages"></div>
+      <input type="text" id="chatInput" placeholder="Сообщение">
+      <button class="neon-btn" onclick="sendMessage()">Отправить</button>
+      <button class="neon-btn back" onclick="goHome()">← Назад</button>
+    </section>
+
   </main>
 
   <nav class="bottom-nav">
@@ -28,6 +114,7 @@
     <button onclick="openOrders()">📦</button>
     <button onclick="openSupport()">💬</button>
   </nav>
+
 </div>
 
 <script src="js/config.js"></script>
